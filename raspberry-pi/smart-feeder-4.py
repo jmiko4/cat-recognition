@@ -92,30 +92,39 @@ class CatFeederApp:
     def __init__(self, master):
         self.master = master
         self.master.title("Cat Feeder System")
-        
+
+        # Set the window size to 800x480
+        self.master.geometry("800x480")
+
+        # Disable resizing to prevent elements from spilling outside
+        self.master.resizable(False, False)
+
         # Video feed frame
-        self.video_frame = Frame(master)
+        self.video_frame = Frame(master, width=800, height=300, bg="black")  # Adjusted size
+        self.video_frame.pack_propagate(False)  # Prevent resizing of the frame
         self.video_frame.pack()
-        
-        self.video_label = Label(self.video_frame)
-        self.video_label.pack()
-        
+
+        self.video_label = Label(self.video_frame, bg="black")
+        self.video_label.pack(expand=True)
+
         # Manual feed buttons
         self.manual_feed_frame = Frame(master)
-        self.manual_feed_frame.pack()
-        
-        self.feed_button1 = Button(self.manual_feed_frame, text="Manual Feed Motor 1", command=lambda: send_servo_signal(1))
+        self.manual_feed_frame.pack(pady=10)
+
+        self.feed_button1 = Button(self.manual_feed_frame, text="Feed Motor 1", width=12, height=2, command=lambda: send_servo_signal(1))
         self.feed_button1.pack(side="left", padx=10)
-        
-        self.feed_button2 = Button(self.manual_feed_frame, text="Manual Feed Motor 2", command=lambda: send_servo_signal(2))
+
+        self.feed_button2 = Button(self.manual_feed_frame, text="Feed Motor 2", width=12, height=2, command=lambda: send_servo_signal(2))
         self.feed_button2.pack(side="left", padx=10)
-        
+
         # Stop system button
-        self.stop_button = Button(master, text="Stop System", command=self.stop_system)
+        self.stop_button = Button(master, text="Stop System", width=20, height=2, command=self.stop_system)
         self.stop_button.pack(pady=10)
-        
+
         self.running = True
         self.update_video_feed()
+        
+     
     
     def stop_system(self):
         global running
@@ -129,6 +138,7 @@ class CatFeederApp:
         
     
     def update_video_feed(self):
+        """Continuously updates the video feed."""
         if not self.running:
             return
         
