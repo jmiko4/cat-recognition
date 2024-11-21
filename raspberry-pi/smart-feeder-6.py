@@ -100,27 +100,32 @@ class CatFeederApp:
         # Disable resizing to prevent elements from spilling outside
         self.master.resizable(False, False)
 
-        # Video feed frame
-        self.video_frame = Frame(master, width=800, height=300, bg="black")  # Adjusted size
+        # Create a main frame for the layout
+        self.main_frame = Frame(master)
+        self.main_frame.pack(fill="both", expand=True)
+
+        # Video feed frame (on the left side, vertical)
+        self.video_frame = Frame(self.main_frame, width=500, height=480, bg="black")  # Adjusted size
         self.video_frame.pack_propagate(False)  # Prevent resizing of the frame
-        self.video_frame.pack()
+        self.video_frame.pack(side="left", fill="both")
 
         self.video_label = Label(self.video_frame, bg="black")
         self.video_label.pack(expand=True)
 
-        # Manual feed buttons
-        self.manual_feed_frame = Frame(master)
-        self.manual_feed_frame.pack(pady=10)
+        # Control buttons frame (on the right side)
+        self.controls_frame = Frame(self.main_frame, width=500, height=480)
+        self.controls_frame.pack_propagate(False)  # Prevent resizing of the frame
+        self.controls_frame.pack(side="right", fill="both", expand=True)
 
-        self.feed_button1 = Button(self.manual_feed_frame, text="Feed Motor 1", width=12, height=2, command=lambda: send_servo_signal(1))
-        self.feed_button1.pack(side="left", padx=10)
+        # Add buttons to the control frame
+        self.feed_button1 = Button(self.controls_frame, text="Feed Motor 1", width=12, height=2, command=lambda: send_servo_signal(1))
+        self.feed_button1.pack(pady=20)
 
-        self.feed_button2 = Button(self.manual_feed_frame, text="Feed Motor 2", width=12, height=2, command=lambda: send_servo_signal(2))
-        self.feed_button2.pack(side="left", padx=10)
+        self.feed_button2 = Button(self.controls_frame, text="Feed Motor 2", width=12, height=2, command=lambda: send_servo_signal(2))
+        self.feed_button2.pack(pady=20)
 
-        # Stop system button
-        self.stop_button = Button(master, text="Stop System", width=20, height=2, command=self.stop_system)
-        self.stop_button.pack(pady=10)
+        self.stop_button = Button(self.controls_frame, text="Stop System", width=20, height=2, command=self.stop_system)
+        self.stop_button.pack(pady=20)
 
         self.running = True
         self.camera_active = True  # New flag to track camera state
