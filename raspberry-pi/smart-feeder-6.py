@@ -59,9 +59,23 @@ def send_servo_signal(motor_id):
     except Exception as e:
         print(f"Error with serial communication: {e}")
 
-# Function to play alarm sound
+# Global variable to track alarm state
+alarm_playing = False
+
+# Function to play alarm sound with a buffer
 def play_alarm():
-    pygame.mixer.music.play()
+    global alarm_playing
+    if not alarm_playing:  # Check if the alarm is not already playing
+        alarm_playing = True
+        pygame.mixer.music.play()
+        # Start a separate thread to reset the alarm flag after the sound ends
+        threading.Thread(target=reset_alarm_flag, daemon=True).start()
+
+def reset_alarm_flag():
+    global alarm_playing
+    while pygame.mixer.music.get_busy():  # Wait until the alarm finishes playing
+        time.sleep(0.1)  # Small delay to avoid tight looping
+    alarm_playing = False
 
 # Main loop for detection
 running = True
