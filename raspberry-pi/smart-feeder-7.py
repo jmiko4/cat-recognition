@@ -87,7 +87,7 @@ post_feed_end_time = None
 
 # Schedule for motor2 automatic feeding
 scheduled_feed_times = [
-    "08:30", "12:30", "16:30", "21:00"
+    "08:30", "11:30", "16:30", "21:00"
 ]
 
 # Function to calculate time until next scheduled feed
@@ -171,6 +171,7 @@ class CatFeederApp:
             print("Triggering scheduled feeding...")
             # Feed both motors
             send_servo_signal(1)  # Feed motor 1 (Black Cat)
+            time.sleep(5) #Time for the motor to dispense
             send_servo_signal(2)  # Feed motor 2 (Brown Cat)
 
             # Update feed times
