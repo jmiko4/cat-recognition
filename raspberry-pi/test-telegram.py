@@ -42,8 +42,8 @@ def capture_and_save_image(frame, filename="feeding_area.jpg"):
     print(f"Image saved as {filename}")
 
 def send_telegram_image(frame):
-    token = "7029816891:AAH3pKoxrGF3WHbI7LhufP3ip-vkM1EoNuA"
-    chat_id = "7660668112"
+    token = ""
+    chat_id = ""
     url = f"https://api.telegram.org/bot{token}/sendPhoto"
 
     # Save the current frame
