@@ -1,7 +1,7 @@
 # Cat Recognition Smart Feeder
 
 ## Overview
-The **Cat Recognition Smart Feeder** project aims to prevent one of my cats, who is becoming overweight, from eating food meant for my underweight kitten. This issue is common in multi-pet households where controlling access to food is essential for pet health. The system will use camera-based recognition to ensure only the correct cat can access the food, turning off the feeding area when the wrong cat approaches.
+The **Cat Recognition Smart Feeder** project aims to better control access to food in multi-cat homes. The system uses a TensorFlow camera-based recognition system to feed each cat a set amount of food per day and has an alarm that sounds when one cat is stealing the other's food.
 
 ## Team Member
 - **Justin Mikolajcik**  
